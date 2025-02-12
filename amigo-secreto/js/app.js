@@ -4,11 +4,21 @@ let array_amigos = [];
 function adicionar() {
     //Atribuição de valor da Entrada a uma variavel
     let amigos = document.getElementById('nome-amigo').value;
+    
     //Verifica se o campo está vazio
     if (amigos === "") {
         alert("O campo está vazio!")
         return
     }
+
+    if(array_amigos.includes(amigos)){
+        alert("Não pode haver nomes iguais,\npor favor informe nome e sobrenome")
+        document.getElementById('nome-amigo').value = "";
+        return
+    } else {
+        amigos = document.getElementById('nome-amigo').value;
+    }
+    
     //Atualiza a lista através da entrada no HTML
     array_amigos.push(amigos);
     //Valida se o nome não possui caracteres especiais ou numeros
@@ -23,9 +33,9 @@ function sortear(){
     //Caso queiram tirar um novo resultado com os mesmos integrantes 
     document.getElementById("lista-sorteio").textContent = '';
     //Caso venha de acontecer de haver participantes insuficientes
-    if (array_amigos.length < 3) {
+    if (array_amigos.length < 4) {
         console.log(array_amigos)
-        return alert("O número de participantes não pode ser inferior a 3!");
+        return alert(`Número de participantes não pode ser menor que 4! \n números de participantes atuais = ${array_amigos.length}`);
     }
     
     //Função que vai embaralhar o array
@@ -59,12 +69,14 @@ function embaralha(lista) {
 }
 
 function reiniciar(){
-    //Limpa todos os campos
-    document.getElementById("lista-amigos").textContent = '';
-    document.getElementById("lista-sorteio").textContent = '';
-    document.getElementById('nome-amigo').value = '';
-    //Limpar o Array
-    array_amigos = [];
+    if(confirm("Tem certeza que deseja reiniciar o sorteio do amigo oculto?")){
+        //Limpa todos os campos
+        document.getElementById("lista-amigos").textContent = '';
+        document.getElementById("lista-sorteio").textContent = '';
+        document.getElementById('nome-amigo').value = '';
+        //Limpar o Array
+        array_amigos = [];
+    }
 }
 
 // Função para validar caracteres
